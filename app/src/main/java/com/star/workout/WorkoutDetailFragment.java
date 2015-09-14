@@ -18,26 +18,27 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            workoutId = savedInstanceState.getLong(WORKOUT_ID);
-        }
 
         View view = inflater.inflate(R.layout.fragment_workout_detail, container, false);
 
-        View stopwatchContainer = view.findViewById(R.id.stopwatch_container);
+        if (savedInstanceState != null) {
+            workoutId = savedInstanceState.getLong(WORKOUT_ID);
+        } else {
+            View stopwatchContainer = view.findViewById(R.id.stopwatch_container);
 
-        if (stopwatchContainer != null) {
-            StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            if (stopwatchContainer != null) {
+                StopwatchFragment stopwatchFragment = new StopwatchFragment();
 
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
-            fragmentTransaction.replace(R.id.stopwatch_container, stopwatchFragment);
+                fragmentTransaction.replace(R.id.stopwatch_container, stopwatchFragment);
 
-            fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(null);
 
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
-            fragmentTransaction.commit();
+                fragmentTransaction.commit();
+            }
         }
 
         return view;
